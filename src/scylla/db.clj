@@ -289,7 +289,10 @@
       "5e08fbd8b5d6ec9c")
     ; Scylla wants to install SNTP/NTP, which is going to break in
     ; containers--we skip the install here.
-    (debian/install [:scylla :scylla-jmx :scylla-tools :ntp-])))
+    ;(debian/install [:scylla :scylla-jmx :scylla-tools :ntp-])
+    (debian/install [:dpkg])
+    (debian/install ["scylla-python3=3.8.5-0.20210302.0ac069fdc-1", "scylla-conf=4.2~rc3-0.20200819.e931d28673-1", "scylla-server=4.2~rc3-0.20200819.e931d28673-1", "scylla-jmx=4.2~rc3-20200819.f391c3381a-1", "scylla-kernel-conf=4.2~rc3-0.20200819.e931d28673-1", "scylla-tools-core=4.2~rc3-20200819.cb1d9ccf61-1", "scylla-tools=4.2~rc3-20200819.cb1d9ccf61-1", "ntp-", "scylla=4.2~rc3-0.20200819.e931d28673-1"])
+    ))
 
 (defn install-local-files!
   "Our test can take a :local-scylla-bin or :local-deb option, which we use to
@@ -324,7 +327,8 @@
   (install-jdk8!)
   (prep-for-version-change! test)
   (install-scylla-from-apt! test)
-  (install-local-files! test))
+  ;(install-local-files! test)
+  )
 
 (defn bootstrap-seeds
   "Returns a comma-separated string of seed nodes for boostrap.
