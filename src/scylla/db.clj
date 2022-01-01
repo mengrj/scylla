@@ -299,16 +299,18 @@
   [test]
   (c/su
     (debian/install [:procps])
-    (c/exec :apt :--fix-broken :install)
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-python3_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-server_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-jmx_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-kernel-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-tools-core_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-tools_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla-node-exporter_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i :"/scylla/packages/scylla_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :apt :--fix-broken :install :-y)
+    (info "installing scylla")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-python3_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-server_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :apt :--fix-broken :install :-y)
+    (c/exec :dpkg :-i "/scylla/packages/scylla-jmx_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-kernel-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-tools-core_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-tools_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla-node-exporter_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylla/packages/scylla_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
   ))
 
 (defn install-local-files!
