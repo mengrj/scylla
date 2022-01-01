@@ -234,7 +234,7 @@
     ; LIVE DANGEROUSLY
     (c/exec :wget :-qO :- "https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public" | :apt-key :add :-)
     (debian/add-repo! "adoptopenjdk" "deb  [arch=amd64] https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main")
-    (debian/install [:adoptopenjdk-8-hotspot])))
+    (debian/install [:adoptopenjdk-8-hotspot :adoptopenjdk-8-hotspot-jre])))
 
 (defn uninstall-scylla!
   "Removes Scylla packages--e.g. in preparation to install a different version.
@@ -298,13 +298,12 @@
 (defn install-scylla-from-deb!
   [test]
   (c/su
-    (debian/install [:procps])
-    (c/exec :apt :--fix-broken :install :-y)
+    ;(debian/install [:procps])
+    ;(c/exec :apt :--fix-broken :install :-y)
     (info "installing scylla")
     (c/exec :dpkg :-i "/scylla/packages/scylla-python3_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
     (c/exec :dpkg :-i "/scylla/packages/scylla-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
     (c/exec :dpkg :-i "/scylla/packages/scylla-server_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :apt :--fix-broken :install :-y)
     (c/exec :dpkg :-i "/scylla/packages/scylla-jmx_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
     (c/exec :dpkg :-i "/scylla/packages/scylla-kernel-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
     (c/exec :dpkg :-i "/scylla/packages/scylla-tools-core_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
@@ -344,7 +343,7 @@
   "Installs ScyllaDB on the given node."
   [node test]
   (install-jdk8!)
-  (prep-for-version-change! test)
+  ;(prep-for-version-change! test)
   ;(install-scylla-from-apt! test)
   (install-scylla-from-deb! test)
   ;(install-local-files! test)
