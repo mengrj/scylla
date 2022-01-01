@@ -294,6 +294,24 @@
     (debian/install ["scylla-python3=3.8.5-0.20210302.0ac069fdc-1", "scylla-conf=4.2~rc3-0.20200819.e931d28673-1", "scylla-server=4.2~rc3-0.20200819.e931d28673-1", "scylla-jmx=4.2~rc3-20200819.f391c3381a-1", "scylla-kernel-conf=4.2~rc3-0.20200819.e931d28673-1", "scylla-tools-core=4.2~rc3-20200819.cb1d9ccf61-1", "scylla-tools=4.2~rc3-20200819.cb1d9ccf61-1", "ntp-", "scylla=4.2~rc3-0.20200819.e931d28673-1"])
     ))
 
+;intall from deb: scylla-python3, scylla-conf, scylla-server, scylla-jmx, scylla-kernel-conf, scylla-tools-core, scylla-tools, scylla
+(defn install-scylla-from-deb!
+  [test]
+  (c/su
+    (debian/install [:procps])
+    (c/exec :apt :--fix-broken :install)
+    (c/exec :git :clone :"https://github.com/mengrj/scylladb-pack.git")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-python3_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-server_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-jmx_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-kernel-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-tools-core_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-tools_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla-node-exporter_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (c/exec :dpkg :-i :"./scylladb-pack/debian/scylla_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+  ))
+
 (defn install-local-files!
   "Our test can take a :local-scylla-bin or :local-deb option, which we use to
   replace files from the normal apt installation. In order of priority, we
@@ -326,7 +344,8 @@
   [node test]
   (install-jdk8!)
   (prep-for-version-change! test)
-  (install-scylla-from-apt! test)
+  ;(install-scylla-from-apt! test)
+  (install-scylla-from-deb! test)
   ;(install-local-files! test)
   )
 
