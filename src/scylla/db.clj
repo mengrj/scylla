@@ -298,18 +298,16 @@
 (defn install-scylla-from-deb!
   [test]
   (c/su
-    ;(debian/install [:procps])
-    ;(c/exec :apt :--fix-broken :install :-y)
-    (info "installing scylla")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-python3_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-server_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-jmx_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-kernel-conf_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-tools-core_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-tools_4.7.dev-0.20220101.3ac622bdd-1_all.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla-node-exporter_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
-    (c/exec :dpkg :-i "/scylla/packages/scylla_4.7.dev-0.20220101.3ac622bdd-1_amd64.deb")
+    (debian/install [:python-yaml])
+    (info "installing scylla-4.2.rc3")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-python3_3.8.5-0.20220103.e931d2867-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-conf_4.2~rc3-0.20220103.e931d2867-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-server_4.2~rc3-0.20220103.e931d2867-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-jmx_666.development-20220103.b219573-1_all.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-kernel-conf_4.2~rc3-0.20220103.e931d2867-1_amd64.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-tools-core_666.development-20220103.1639b12061-1_all.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla-tools_666.development-20220103.1639b12061-1_all.deb")
+    (c/exec :dpkg :-i "/scylladb-pack/scylladb-4.2.rc3/scylla_4.2~rc3-0.20220103.e931d2867-1_amd64.deb")
   ))
 
 (defn install-local-files!
